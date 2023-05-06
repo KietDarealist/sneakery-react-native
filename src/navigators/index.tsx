@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Login from '../screens/auth/Login';
 import FirstTime from '../screens/welcome/FirstTime';
 import MainStack from './MainStack';
+import ProductDetailScreen from '../screens/product/DetailScreen';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useAuth} from '../hooks/useAuth';
@@ -44,6 +45,12 @@ const ApplicationNavigator: React.FC<IApplicationNavigatorProps> = props => {
           name="Login"
           component={Login}
           options={{animation: 'slide_from_left'}}
+        />
+
+        <Stack.Screen
+          name="ProductDetail"
+          component={ProductDetailScreen}
+          options={{animation: 'slide_from_bottom'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

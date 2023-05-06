@@ -8,7 +8,7 @@ interface IProduct {
   condition: IProductCondition;
   startPrice: number;
   currentPrice: number;
-  imagePath: string[];
+  imagePath: string;
   category: ICategoryProps;
   brand: string;
   color: string;

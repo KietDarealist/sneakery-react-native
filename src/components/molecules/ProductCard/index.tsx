@@ -2,17 +2,23 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Image, Text} from 'react-native';
 import useTheme from '../../../hooks/useTheme';
+import {useNavigation} from '@react-navigation/native';
 
-interface IProductCardProps {}
+interface IProductCardProps extends IProduct {}
 
 const ProductCard: React.FC<IProductCardProps> = props => {
   const {Colors} = useTheme();
+  const navigation = useNavigation();
+  const {name, imagePath, currentPrice, startPrice} = props;
   return (
     <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('ProductDetail' as never, {id: '1'} as never)
+      }
       activeOpacity={0.8}
       style={{
         paddingVertical: 16,
-        paddingHorizontal: 24,
+        paddingHorizontal: 20,
         backgroundColor: 'white',
         width: '100%',
         height: 210,
@@ -20,11 +26,12 @@ const ProductCard: React.FC<IProductCardProps> = props => {
         borderRadius: 16,
         borderColor: Colors.secondary[200],
         marginBottom: 12,
+        minWidth: '48%',
       }}>
       <Image
         style={{width: '100%', height: 100}}
         source={{
-          uri: 'https://sneakery.vercel.app/_next/image?url=https%3A%2F%2Fimages.stockx.com%2F360%2FAir-Jordan-1-Retro-High-Dior%2FImages%2FAir-Jordan-1-Retro-High-Dior%2FLv2%2Fimg01.jpg%3Ffm%3Davif%26auto%3Dcompress%26w%3D768%26dpr%3D2%26updated_at%3D1635189753%26h%3D512%26q%3D75&w=3840&q=75',
+          uri: imagePath as string,
         }}
       />
       <Text
@@ -35,8 +42,9 @@ const ProductCard: React.FC<IProductCardProps> = props => {
           fontWeight: 'bold',
           color: Colors.secondary[500],
           marginTop: 8,
+          maxWidth: 100,
         }}>
-        Jordan Dior Travis
+        {name}
       </Text>
       <Text
         numberOfLines={1}
@@ -47,7 +55,7 @@ const ProductCard: React.FC<IProductCardProps> = props => {
           color: Colors.secondary[500],
           marginTop: 8,
         }}>
-        Được bán bởi: Mai Nhi
+        Được bán bởi: {}
       </Text>
       <Text
         numberOfLines={1}
@@ -58,7 +66,7 @@ const ProductCard: React.FC<IProductCardProps> = props => {
           color: Colors.primary[500],
           marginTop: 8,
         }}>
-        $500
+        $ {startPrice}
       </Text>
     </TouchableOpacity>
   );

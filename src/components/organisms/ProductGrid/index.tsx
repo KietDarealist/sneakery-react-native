@@ -11,6 +11,7 @@ interface IProductGridProps {
 
 const ProductGrid: React.FC<IProductGridProps> = props => {
   const {Colors} = useTheme();
+  const {products} = props;
   return (
     <View style={{marginBottom: 16}}>
       <View
@@ -19,10 +20,11 @@ const ProductGrid: React.FC<IProductGridProps> = props => {
           flexWrap: 'wrap',
           justifyContent: 'space-between',
         }}>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {products.map((product, index) => {
+          if (index <= 3) {
+            return <ProductCard {...product} />;
+          }
+        })}
       </View>
       <View
         style={{
