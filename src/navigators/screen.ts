@@ -1,14 +1,14 @@
 export enum Screens {
   //auth
-  LOGIN = 'LOGIN',
+  LOGIN = 'Login',
 
   //main
   MAIN = 'MAIN',
 
-  WELCOME = 'WELCOME',
+  WELCOME = 'Welcome',
 
   //product
-  PRODUCT_DETAIL = 'PRODUCT_DETAIL',
+  PRODUCT_DETAIL = 'ProductDetail',
 }
 
 export interface RootStackParamList {

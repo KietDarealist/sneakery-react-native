@@ -1,26 +1,53 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../store';
+import {
+  deposit,
+  logOutAccount,
+  postRegisterAccount,
+  refreshWallet,
+} from '../store/auth/actions';
 
 const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const getAuthInfo = async () => {
-    try {
-      const response = await AsyncStorage.getItem('accessToken');
+  const {
+    accessToken,
+    userInfo,
+    accountBalance,
+    isDepositting,
+    isRegisterLoading,
+  } = useSelector((state: RootState) => state.authReducer);
+  const dispatch = useDispatch();
 
-      if (response) {
-        setIsAuthenticated(true);
-        console.log('TOKEN', response);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const dispatchLogoutAccount = () => dispatch(logOutAccount());
+
+  const dispatchDeposit = (chargeAmount: number) => {
+    dispatch(deposit({userId: userInfo?.id, chargeAmount, token: accessToken}));
   };
 
-  useEffect(() => {
-    getAuthInfo();
-  }, []);
+  const dispatchRefreshWallet = () => {
+    dispatch(refreshWallet({userId: userInfo.id}));
+  };
 
-  return {isAuthenticated, getAuthInfo};
+  const dispatchRegisterAccount = (
+    email: string,
+    password: string,
+    username: string,
+  ) => {
+    dispatch(postRegisterAccount({email, password, username}));
+  };
+
+  const isAuthenticated = !!accessToken;
+
+  return {
+    isAuthenticated,
+    accessToken,
+    dispatchLogoutAccount,
+    userInfo,
+    accountBalance,
+    dispatchDeposit,
+    isDepositting,
+    dispatchRefreshWallet,
+    dispatchRegisterAccount,
+  };
 };
 
 export {useAuth};

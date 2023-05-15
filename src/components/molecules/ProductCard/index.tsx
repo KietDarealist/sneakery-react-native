@@ -1,20 +1,24 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Image, Text} from 'react-native';
+import {Text, Image} from 'react-native';
+
 import useTheme from '../../../hooks/useTheme';
 import {useNavigation} from '@react-navigation/native';
+import {IProduct} from '../../../types';
 
-interface IProductCardProps extends IProduct {}
+interface IProductCardProps extends IProduct {
+  onCardPress: () => void;
+}
 
 const ProductCard: React.FC<IProductCardProps> = props => {
   const {Colors} = useTheme();
   const navigation = useNavigation();
   const {name, imagePath, currentPrice, startPrice} = props;
+
+  console.log('TEST', imagePath as any);
   return (
     <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('ProductDetail' as never, {id: '1'} as never)
-      }
+      onPress={() => props.onCardPress()}
       activeOpacity={0.8}
       style={{
         paddingVertical: 16,
@@ -31,8 +35,9 @@ const ProductCard: React.FC<IProductCardProps> = props => {
       <Image
         style={{width: '100%', height: 100}}
         source={{
-          uri: imagePath as string,
+          uri: `${imagePath as any}`,
         }}
+        resizeMode="cover"
       />
       <Text
         numberOfLines={1}
@@ -55,7 +60,7 @@ const ProductCard: React.FC<IProductCardProps> = props => {
           color: Colors.secondary[500],
           marginTop: 8,
         }}>
-        Được bán bởi: {}
+        Được bán bởi: {(props as any)?.username}
       </Text>
       <Text
         numberOfLines={1}

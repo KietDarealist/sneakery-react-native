@@ -33,7 +33,7 @@ const TextInput: React.FC<ITextInputProps> = props => {
         fieldState: {error},
         formState: {errors},
       }) => (
-        <View style={customStyle}>
+        <View style={[customStyle, {marginVertical: 4}]}>
           <Text
             style={{
               fontSize: 14,
@@ -46,12 +46,23 @@ const TextInput: React.FC<ITextInputProps> = props => {
               marginBottom: 4,
               marginLeft: 4,
             }}>
-            {label}
+            {label}{' '}
+            {!!error?.message ? (
+              <Text
+                style={{
+                  fontSize: 12,
+                  marginVertical: 8,
+                  fontWeight: 'normal',
+                  color: Colors.error[500],
+                }}>
+                ({error?.message})
+              </Text>
+            ) : null}
           </Text>
 
           <RNTextInput
+            value={value}
             {...props}
-            keyboardType="numeric"
             onChangeText={text => onChange(text)}
             onFocus={() => setIsFocus(true)}
             placeholderTextColor={
@@ -59,7 +70,7 @@ const TextInput: React.FC<ITextInputProps> = props => {
             }
             onPressIn={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
-            placeholder={error ? error?.message : placeholder}
+            placeholder={placeholder}
             style={{
               borderColor: error
                 ? Colors.error[500]

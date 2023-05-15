@@ -88,7 +88,7 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
         <WelcomSlider />
         <View
           style={{
-            paddingBottom: Platform.OS === 'ios' ? 80 : 20,
+            paddingBottom: Platform.OS === 'ios' ? 80 : 40,
             paddingHorizontal: 20,
           }}>
           <Button
@@ -97,7 +97,7 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
           />
           <Button
             label={t('welcome.register_now')}
-            onPress={() => navigation.navigate('Login' as never)}
+            onPress={() => navigation.navigate('Register' as never)}
             variant="outline"
             customStyle={{marginTop: 8}}
           />

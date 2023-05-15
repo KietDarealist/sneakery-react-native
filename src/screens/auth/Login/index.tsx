@@ -21,6 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import {RootState} from '../../../store';
 import {useAuth} from '../../../hooks/useAuth';
+import {validateEmail} from '../../../utils/prototype';
 
 interface ILoginScreenProps {}
 
@@ -29,7 +30,7 @@ const LoginScreen: React.FC<ILoginScreenProps> = props => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {register, control, handleSubmit} = useForm();
+  const {register, control, handleSubmit, getValues} = useForm();
   const {isSignInLoading} = useSelector(
     (state: RootState) => state?.authReducer,
   );
@@ -41,8 +42,8 @@ const LoginScreen: React.FC<ILoginScreenProps> = props => {
   const handlePressLogin = () => {
     dispatch(
       postSignInAccount({
-        email: '20110072@student.hcmute.edu.vn',
-        password: '123456',
+        email: getValues('email'),
+        password: getValues('password'),
       }),
     );
   };
@@ -75,17 +76,25 @@ const LoginScreen: React.FC<ILoginScreenProps> = props => {
               </Text>
               <TextInput
                 control={control}
-                {...register('email', {required: 'This field is required'})}
+                {...register('email', {
+                  required: 'This field is required',
+                  validate: validateEmail,
+                  minLength: {
+                    value: 6,
+                    message: 'Mật khẩu phải lớn hơn 6 kí tự',
+                  },
+                })}
                 placeholder={t('login.enter_your_email')}
                 label={t('login.email')}
+                keyboardType="default"
                 customStyle={[styles.textInput, {marginTop: 20}]}
               />
               <TextInput
                 control={control}
                 {...register('password', {required: 'This field is required'})}
-                placeholder="Enter you password"
-                label="Password"
-                customStyle={[styles.textInput, {marginTop: 1}]}
+                placeholder={t('login.enter_your_password')}
+                label={t('login.password')}
+                customStyle={[styles.textInput, {marginTop: 8}]}
                 secureTextEntry={true}
                 inputMode="text"
               />

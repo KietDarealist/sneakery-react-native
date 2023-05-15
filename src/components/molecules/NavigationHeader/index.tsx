@@ -22,18 +22,16 @@ const NavigationHeader: React.FC<IAuthNavigateHeaderProps> = props => {
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}>
-      <TouchableOpacity
-        style={{width: '33%'}}
-        onPress={() => navigation.goBack()}>
-        <Image
-          source={require('../../../assets/icons/ArrowLeft.png')}
-          style={{width: 30, height: 30}}
-        />
-      </TouchableOpacity>
-      <View style={{width: '33%'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require('../../../assets/icons/ArrowLeft.png')}
+            style={{width: 30, height: 30, marginRight: 8}}
+          />
+        </TouchableOpacity>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: 'bold',
             color: Colors.secondary[700],
           }}>

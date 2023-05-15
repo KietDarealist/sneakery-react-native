@@ -5,8 +5,8 @@ import HomeIcon from '../assets/icons/Home.png';
 import HomeActiveIcon from '../assets/icons/HomeActive.png';
 import SearchIcon from '../assets/icons/Search.png';
 import SearchActiveIcon from '../assets/icons/SearchActive.png';
-import HeartIcon from '../assets/icons/Heart.png';
-import HeartActiveIcon from '../assets/icons/HeartActive.png';
+import CartIcon from '../assets/icons/Cart.png';
+import CartActiveIcon from '../assets/icons/CartActive.png';
 import UserIcon from '../assets/icons/User.png';
 import UserActiveIcon from '../assets/icons/UserActive.png';
 
@@ -16,6 +16,7 @@ import Search from '../screens/main/Search';
 import Cart from '../screens/main/Cart';
 import Account from '../screens/main/Account';
 import useTheme from '../hooks/useTheme';
+import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,7 @@ interface IMainStackProps {}
 
 const MainStack: React.FC<IMainStackProps> = props => {
   const {Colors} = useTheme();
+  const {t} = useTranslation();
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -41,7 +43,7 @@ const MainStack: React.FC<IMainStackProps> = props => {
                 fontSize: 12,
                 textAlign: 'center',
               }}>
-              Home
+              {t('bottom_tab.home')}
             </Text>
           ),
           tabBarIcon: props =>
@@ -67,7 +69,7 @@ const MainStack: React.FC<IMainStackProps> = props => {
                 fontSize: 12,
                 textAlign: 'center',
               }}>
-              Search
+              {t('bottom_tab.search')}
             </Text>
           ),
           tabBarIcon: props =>
@@ -96,14 +98,14 @@ const MainStack: React.FC<IMainStackProps> = props => {
                 fontSize: 12,
                 textAlign: 'center',
               }}>
-              Your Cart
+              {t('bottom_tab.cart')}
             </Text>
           ),
           tabBarIcon: props =>
             props.focused ? (
-              <Image source={HeartActiveIcon} style={{width: 20, height: 20}} />
+              <Image source={CartActiveIcon} style={{width: 20, height: 20}} />
             ) : (
-              <Image source={HeartIcon} style={{width: 20, height: 20}} />
+              <Image source={CartIcon} style={{width: 20, height: 20}} />
             ),
           tabBarActiveBackgroundColor: Colors.primary[50],
         }}
@@ -123,7 +125,7 @@ const MainStack: React.FC<IMainStackProps> = props => {
                 fontSize: 12,
                 textAlign: 'center',
               }}>
-              Account
+              {t('bottom_tab.account')}
             </Text>
           ),
           tabBarIcon: props =>

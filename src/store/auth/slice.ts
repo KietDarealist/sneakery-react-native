@@ -1,37 +1,28 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {IUser} from '../../types';
 
 export interface AuthState {
   //sign in state
   accessToken: string | null;
   isSignInLoading: boolean;
+  isRegisterLoading: boolean;
+  isDepositting: boolean;
   error: string | null;
 
-  //reset password state
-  currentEmail: string | null;
-  isSendOTPLoading: boolean;
-  isConfirmOTPLoading: boolean;
-  sendOTPError: string | null;
-  confirmOTPError: string | null;
-  resetPasswordToken: string | null;
-  isChangePasswordLoading: boolean;
-  changePasswordError: string | null;
+  userInfo: IUser | null;
+  accountBalance: number;
 }
 
 export const initialState: AuthState = {
   //sign in state
   accessToken: null,
   isSignInLoading: false,
+  isRegisterLoading: false,
+  isDepositting: false,
   error: null,
+  userInfo: null,
 
-  //reset password state
-  sendOTPError: null,
-  confirmOTPError: null,
-  isSendOTPLoading: false,
-  isConfirmOTPLoading: false,
-  isChangePasswordLoading: false,
-  changePasswordError: null,
-  currentEmail: '',
-  resetPasswordToken: null,
+  accountBalance: 0,
 };
 
 export const authSlice = createSlice({
@@ -45,33 +36,20 @@ export const authSlice = createSlice({
     setIsSignInLoading: (state, action) => {
       state.isSignInLoading = action.payload;
     },
+    setIsRegisterLoading: (state, action) => {
+      state.isRegisterLoading = action.payload;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
-    //reset password flow
-    setIsSendOTPLoading: (state, action) => {
-      state.isSendOTPLoading = action.payload;
+    setUserInfo: (state, action) => {
+      state.userInfo = action.payload;
     },
-    setSendOTPError: (state, action) => {
-      state.sendOTPError = action.payload;
+    setAccountBalance: (state, action) => {
+      state.accountBalance = action.payload;
     },
-    setIsConfirmOTPLoading: (state, action) => {
-      state.isConfirmOTPLoading = action.payload;
-    },
-    setConfirmOTPError: (state, action) => {
-      state.confirmOTPError = action.payload;
-    },
-    setCurrentEmail: (state, action) => {
-      state.currentEmail = action.payload;
-    },
-    setResetPasswordToken: (state, action) => {
-      state.resetPasswordToken = action.payload;
-    },
-    setIsChangePasswordLoading: (state, action) => {
-      state.isChangePasswordLoading = action.payload;
-    },
-    setChangePasswordError: (state, action) => {
-      state.changePasswordError = action.payload;
+    setIsDepositting: (state, action) => {
+      state.isDepositting = action.payload;
     },
     reset() {
       return initialState;

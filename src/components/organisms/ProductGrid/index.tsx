@@ -4,6 +4,8 @@ import ProductCard from '../../molecules/ProductCard';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Text} from 'react-native';
 import useTheme from '../../../hooks/useTheme';
+import {useNavigation} from '@react-navigation/native';
+import {IProduct} from '../../../types';
 
 interface IProductGridProps {
   products: IProduct[];
@@ -12,6 +14,7 @@ interface IProductGridProps {
 const ProductGrid: React.FC<IProductGridProps> = props => {
   const {Colors} = useTheme();
   const {products} = props;
+  const navigation = useNavigation();
   return (
     <View style={{marginBottom: 16}}>
       <View
@@ -22,7 +25,17 @@ const ProductGrid: React.FC<IProductGridProps> = props => {
         }}>
         {products.map((product, index) => {
           if (index <= 3) {
-            return <ProductCard {...product} />;
+            return (
+              <ProductCard
+                {...product}
+                onCardPress={() =>
+                  navigation.navigate(
+                    'ProductDetail' as never,
+                    {id: product?.id} as never,
+                  )
+                }
+              />
+            );
           }
         })}
       </View>

@@ -21,7 +21,11 @@ import rootReducer from './reducer';
 const reduxSagaMonitorOptions = {};
 const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 
-const saveSubsetAuthReducer = createFilter('authReducer', ['accessToken']);
+const saveSubsetAuthReducer = createFilter('authReducer', [
+  'accessToken',
+  'userInfo',
+  'accountBalance',
+]);
 
 const persistConfig = {
   key: 'root',
