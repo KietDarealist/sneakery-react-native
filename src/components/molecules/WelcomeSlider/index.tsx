@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react'
 import {
   Image,
   Pressable,
@@ -6,22 +6,28 @@ import {
   Text,
   useWindowDimensions,
   View,
-} from 'react-native';
-import useTheme from '../../../hooks/useTheme';
+} from 'react-native'
 
-import ThinkingStorySet from '../../../assets/images/ThinkingStorySet.png';
-import PhoneStorySet from '../../../assets/images/PhoneStorySet.png';
-import ReceiveStorySet from '../../../assets/images/ReceiveStorySet.png';
-import {useTranslation} from 'react-i18next';
+import ThinkingStorySet from '@/assets/images/ThinkingStorySet.png'
+import PhoneStorySet from '@/assets/images/PhoneStorySet.png'
+import ReceiveStorySet from '@/assets/images/ReceiveStorySet.png'
+
+//hooks
+import useTheme from '@/hooks/useTheme'
+import { useTranslation } from 'react-i18next'
 
 interface IWelcomSliderProps {}
 
 const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
-  const {width} = useWindowDimensions();
-  const {Colors} = useTheme();
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const {t} = useTranslation();
+  //local state
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
 
+  //hooks
+  const { width } = useWindowDimensions()
+  const { Colors } = useTheme()
+  const { t } = useTranslation()
+
+  //dummy data
   const DATA = [
     {
       title: 'Languages',
@@ -46,11 +52,12 @@ const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
         },
       ],
     },
-  ];
+  ]
 
-  const onCheckViewableItems = ({viewableItems, changed}: any) => {
-    setCurrentIndex(viewableItems[0]?.index);
-  };
+  //functions
+  const onCheckViewableItems = ({ viewableItems, changed }: any) => {
+    setCurrentIndex(viewableItems[0]?.index)
+  }
 
   return (
     <View>
@@ -60,21 +67,23 @@ const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
         onViewableItemsChanged={onCheckViewableItems}
         pagingEnabled
         keyExtractor={(item, index) => item.id + index}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <View
             style={{
               width: width,
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
-            <Image source={item.image} style={{width: 300, height: 300}} />
+            }}
+          >
+            <Image source={item.image} style={{ width: 300, height: 300 }} />
             <Text
               style={{
                 color: Colors.secondary[700],
                 fontWeight: '700',
                 fontSize: 20,
                 marginTop: 15,
-              }}>
+              }}
+            >
               {item.title}
             </Text>
             <Text
@@ -84,7 +93,8 @@ const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
                 color: Colors.secondary[500],
                 width: '80%',
                 textAlign: 'center',
-              }}>
+              }}
+            >
               {item.description}
             </Text>
           </View>
@@ -97,7 +107,8 @@ const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
           justifyContent: 'center',
           marginTop: 20,
           flexDirection: 'row',
-        }}>
+        }}
+      >
         <Pressable
           style={{
             width: 5,
@@ -105,7 +116,8 @@ const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
             borderRadius: 50,
             backgroundColor:
               currentIndex === 0 ? Colors.primary[500] : Colors.secondary[300],
-          }}></Pressable>
+          }}
+        ></Pressable>
         <Pressable
           style={{
             width: 5,
@@ -114,7 +126,8 @@ const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
             backgroundColor:
               currentIndex === 1 ? Colors.primary[500] : Colors.secondary[300],
             marginLeft: 10,
-          }}></Pressable>
+          }}
+        ></Pressable>
         <Pressable
           style={{
             width: 5,
@@ -123,10 +136,11 @@ const WelcomSlider: React.FC<IWelcomSliderProps> = props => {
             backgroundColor:
               currentIndex === 2 ? Colors.primary[500] : Colors.secondary[300],
             marginLeft: 10,
-          }}></Pressable>
+          }}
+        ></Pressable>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default WelcomSlider;
+export default WelcomSlider

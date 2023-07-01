@@ -1,18 +1,25 @@
-import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import useTheme from '../../../hooks/useTheme';
-import {Image, ImageSourcePropType, Text, View} from 'react-native';
+import React from 'react'
+
+//components
+import { Image, ImageSourcePropType, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+
+//hooks
+import useTheme from '@/hooks/useTheme'
 
 interface IBrandCardProps {
-  isReverse?: boolean;
-  title: string;
-  subTitle: string;
-  logo: ImageSourcePropType;
+  isReverse?: boolean
+  title: string
+  subTitle: string
+  logo: ImageSourcePropType
 }
 
 const BrandCard: React.FC<IBrandCardProps> = props => {
-  const {isReverse, title, subTitle, logo} = props;
-  const {Colors} = useTheme();
+  //props
+  const { isReverse, title, subTitle, logo } = props
+
+  //hooks
+  const { Colors } = useTheme()
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -29,14 +36,16 @@ const BrandCard: React.FC<IBrandCardProps> = props => {
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 16,
-      }}>
-      <View style={{maxWidth: '60%'}}>
+      }}
+    >
+      <View style={{ maxWidth: '60%' }}>
         <Text
           style={{
             fontSize: 16,
             fontWeight: 'bold',
             color: Colors.primary[600],
-          }}>
+          }}
+        >
           {title}
         </Text>
         <Text
@@ -45,16 +54,17 @@ const BrandCard: React.FC<IBrandCardProps> = props => {
             marginTop: 8,
             fontWeight: 'normal',
             color: Colors.secondary[600],
-          }}>
+          }}
+        >
           {subTitle}
         </Text>
       </View>
       <Image
         source={logo}
-        style={{width: 100, height: 60, backgroundColor: 'white'}}
+        style={{ width: 100, height: 60, backgroundColor: 'white' }}
       />
     </TouchableOpacity>
-  );
-};
+  )
+}
 
-export default BrandCard;
+export default BrandCard

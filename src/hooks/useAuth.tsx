@@ -1,11 +1,11 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../store';
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../store'
 import {
   deposit,
   logOutAccount,
   postRegisterAccount,
   refreshWallet,
-} from '../store/auth/actions';
+} from '@/store/auth/actions'
 
 const useAuth = () => {
   const {
@@ -14,31 +14,34 @@ const useAuth = () => {
     accountBalance,
     isDepositting,
     isRegisterLoading,
-  } = useSelector((state: RootState) => state.authReducer);
-  const dispatch = useDispatch();
+  } = useSelector((state: RootState) => state.authReducer)
+  const dispatch = useDispatch()
 
-  const dispatchLogoutAccount = () => dispatch(logOutAccount());
+  const dispatchLogoutAccount = () => dispatch(logOutAccount())
 
   const dispatchDeposit = (chargeAmount: number) => {
-    dispatch(deposit({userId: userInfo?.id, chargeAmount, token: accessToken}));
-  };
+    dispatch(
+      deposit({ userId: userInfo?.id, chargeAmount, token: accessToken }),
+    )
+  }
 
   const dispatchRefreshWallet = () => {
-    dispatch(refreshWallet({userId: userInfo.id}));
-  };
+    dispatch(refreshWallet({ userId: userInfo.id }))
+  }
 
   const dispatchRegisterAccount = (
     email: string,
     password: string,
     username: string,
   ) => {
-    dispatch(postRegisterAccount({email, password, username}));
-  };
+    dispatch(postRegisterAccount({ email, password, username }))
+  }
 
-  const isAuthenticated = !!accessToken;
+  const isAuthenticated = !!accessToken
 
   return {
     isAuthenticated,
+    isRegisterLoading,
     accessToken,
     dispatchLogoutAccount,
     userInfo,
@@ -47,7 +50,7 @@ const useAuth = () => {
     isDepositting,
     dispatchRefreshWallet,
     dispatchRegisterAccount,
-  };
-};
+  }
+}
 
-export {useAuth};
+export { useAuth }

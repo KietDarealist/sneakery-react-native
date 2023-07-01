@@ -1,24 +1,19 @@
-import React, {Children, Component, ReactNode} from 'react';
-import {
-  KeyboardAvoidingView,
-  SafeAreaView,
-  ScrollView,
-  View,
-} from 'react-native';
-import useTheme from '../../../hooks/useTheme';
+import React, { Children, Component, ReactNode } from 'react'
+
+//components
+import { SafeAreaView, View } from 'react-native'
 
 interface IAuthLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const AuthLayout: React.FC<IAuthLayoutProps> = props => {
-  const {children} = props;
-  const {Colors} = useTheme();
+  const { children } = props
   return (
-    <SafeAreaView style={{backgroundColor: 'white'}}>
-      <View style={{paddingHorizontal: 20}}>{children}</View>
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
+      <View style={{ paddingHorizontal: 20 }}>{children}</View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default AuthLayout;
+export default AuthLayout

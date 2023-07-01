@@ -1,21 +1,26 @@
-import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Text, Image} from 'react-native';
+import React from 'react'
 
-import useTheme from '../../../hooks/useTheme';
-import {useNavigation} from '@react-navigation/native';
-import {IProduct} from '../../../types';
+//components
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Text, Image } from 'react-native'
+
+//hooks
+import useTheme from '../../../hooks/useTheme'
+
+//utils
+import { IProduct } from '../../../types'
 
 interface IProductCardProps extends IProduct {
-  onCardPress: () => void;
+  onCardPress: () => void
 }
 
 const ProductCard: React.FC<IProductCardProps> = props => {
-  const {Colors} = useTheme();
-  const navigation = useNavigation();
-  const {name, imagePath, currentPrice, startPrice} = props;
+  //props
+  const { name, imagePath, currentPrice, startPrice } = props
 
-  console.log('TEST', imagePath as any);
+  //hooks
+  const { Colors } = useTheme()
+
   return (
     <TouchableOpacity
       onPress={() => props.onCardPress()}
@@ -31,9 +36,10 @@ const ProductCard: React.FC<IProductCardProps> = props => {
         borderColor: Colors.secondary[200],
         marginBottom: 12,
         minWidth: '48%',
-      }}>
+      }}
+    >
       <Image
-        style={{width: '100%', height: 100}}
+        style={{ width: '100%', height: 100 }}
         source={{
           uri: `${imagePath as any}`,
         }}
@@ -48,7 +54,8 @@ const ProductCard: React.FC<IProductCardProps> = props => {
           color: Colors.secondary[500],
           marginTop: 8,
           maxWidth: 100,
-        }}>
+        }}
+      >
         {name}
       </Text>
       <Text
@@ -59,7 +66,8 @@ const ProductCard: React.FC<IProductCardProps> = props => {
           fontWeight: 'normal',
           color: Colors.secondary[500],
           marginTop: 8,
-        }}>
+        }}
+      >
         Được bán bởi: {(props as any)?.username}
       </Text>
       <Text
@@ -70,11 +78,12 @@ const ProductCard: React.FC<IProductCardProps> = props => {
           fontWeight: 'bold',
           color: Colors.primary[500],
           marginTop: 8,
-        }}>
+        }}
+      >
         $ {startPrice}
       </Text>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
-export default ProductCard;
+export default ProductCard

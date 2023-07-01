@@ -1,4 +1,6 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react'
+
+//components
 import {
   View,
   Modal,
@@ -12,44 +14,41 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Text,
-} from 'react-native';
-
-//modules
-import {Controller} from 'react-hook-form';
+} from 'react-native'
 import {
   FlatList,
   GestureHandlerRootView as RNGestureView,
-} from 'react-native-gesture-handler';
-import {ActivityIndicator} from 'react-native-paper';
-import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
+} from 'react-native-gesture-handler'
+import { ActivityIndicator } from 'react-native-paper'
+import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 
-//components
+//utils
+import { Controller } from 'react-hook-form'
 
 //hooks
-import {useCallback, useRef, useMemo, useState} from 'react';
-import useTheme from '../../../hooks/useTheme';
+import { useCallback, useRef, useMemo, useState } from 'react'
+import useTheme from '@/hooks/useTheme'
 
 interface IBottomSheetProps<T = any> {
-  options: T[];
-  optionSelected?: T | null;
-  optionLabelField?: string;
-  optionValueField?: string;
-  searchable?: boolean;
+  options: T[]
+  optionSelected?: T | null
+  optionLabelField?: string
+  optionValueField?: string
+  searchable?: boolean
 
-  searchPlaceholder?: string;
-  onChangeSearch?: (search: string) => void;
+  searchPlaceholder?: string
+  onChangeSearch?: (search: string) => void
 
-  onSelect?: (item: T) => void;
-  customRenderItem?: (item: T) => ReactNode;
-  handleCloseSheet?: () => void;
+  onSelect?: (item: T) => void
+  customRenderItem?: (item: T) => ReactNode
+  handleCloseSheet?: () => void
 
-  onEndReach?: () => void;
-  loadingFooter?: boolean;
+  onEndReach?: () => void
+  loadingFooter?: boolean
 }
 
 const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
-  const {Colors} = useTheme();
-  // hooks
+  //props
   const {
     options,
     optionLabelField = 'name',
@@ -62,10 +61,15 @@ const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
     customRenderItem,
     onEndReach = () => null,
     loadingFooter = false,
-  } = props;
-  const sheetRef = useRef<BottomSheet>(null);
-  const [visibleModal, setVisibleModal] = useState<boolean>(true);
-  const [search, setSearch] = useState<string>('');
+  } = props
+
+  //local state
+  const [visibleModal, setVisibleModal] = useState<boolean>(true)
+  const [search, setSearch] = useState<string>('')
+
+  // hooks
+  const { Colors } = useTheme()
+  const sheetRef = useRef<BottomSheet>(null)
 
   // variables
   const snapPoints = useMemo(
@@ -74,23 +78,23 @@ const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
       Platform.OS === 'ios' ? '93%' : '97%',
     ],
     [],
-  );
+  )
 
-  // callbacks
-  const handleSheetChange = useCallback((index: any) => {}, []);
+  // functions
+  const handleSheetChange = useCallback((index: any) => {}, [])
 
   const handleSnapPress = useCallback((index: any) => {
-    sheetRef.current?.snapToIndex(index);
-  }, []);
+    sheetRef.current?.snapToIndex(index)
+  }, [])
 
   const onCloseSheet = useCallback(() => {
-    handleCloseSheet?.();
-    setVisibleModal(false);
-  }, []);
+    handleCloseSheet?.()
+    setVisibleModal(false)
+  }, [])
 
   // render
   const renderItem = useCallback(
-    ({item}: any) => {
+    ({ item }: any) => {
       if (customRenderItem === undefined) {
         return (
           <TouchableHighlight
@@ -105,62 +109,64 @@ const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
                   : 'transparent',
               borderBottomColor: Colors.secondary[200],
               borderBottomWidth: 1,
-            }}>
-            <Text style={{color: Colors.secondary[800]}}>
+            }}
+          >
+            <Text style={{ color: Colors.secondary[800] }}>
               {item?.[optionLabelField as any] as string}
             </Text>
           </TouchableHighlight>
-        );
+        )
       } else {
         return (
-          <View>{customRenderItem?.({item, optionSelected, onSelect})}</View>
-        );
+          <View>{customRenderItem?.({ item, optionSelected, onSelect })}</View>
+        )
       }
     },
 
     [],
-  );
+  )
 
   const renderBackdrop = useCallback(
     (props: any) => <BottomSheetBackdrop {...props} />,
     [],
-  );
+  )
 
   const filterOptions = useMemo(
     () =>
       options.filter(option => {
         return option?.[optionLabelField]
           .toLowerCase()
-          .includes(search.toLowerCase());
+          .includes(search.toLowerCase())
       }),
     [search, options],
-  );
+  )
 
   React.useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardWillShow', event => {
-      sheetRef.current?.snapToIndex(1);
-    });
+      sheetRef.current?.snapToIndex(1)
+    })
     const hideSubscription = Keyboard.addListener('keyboardWillHide', () => {
-      sheetRef.current?.snapToIndex(0);
-    });
+      sheetRef.current?.snapToIndex(0)
+    })
 
     return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  });
+      showSubscription.remove()
+      hideSubscription.remove()
+    }
+  })
 
   return (
     <Modal transparent visible={visibleModal}>
       {/* RNGestureView for animation on android bottom sheet */}
-      <RNGestureView style={{width: '100%', height: '100%'}}>
+      <RNGestureView style={{ width: '100%', height: '100%' }}>
         <View
           style={{
             width: '100%',
             height: '100%',
             position: 'absolute',
             backgroundColor: 'rgba(0,0,0,0.6)',
-          }}>
+          }}
+        >
           <BottomSheet
             ref={sheetRef}
             index={0}
@@ -168,22 +174,24 @@ const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
             enablePanDownToClose
             onClose={onCloseSheet}
             onChange={handleSheetChange}
-            backdropComponent={renderBackdrop}>
+            backdropComponent={renderBackdrop}
+          >
             <TouchableOpacity
               onPress={onCloseSheet}
               style={{
                 marginBottom: 16,
                 marginRight: 16,
                 alignSelf: 'flex-end',
-              }}></TouchableOpacity>
+              }}
+            ></TouchableOpacity>
             {props.searchable ? (
               <TextInput
                 allowFontScaling={false}
                 placeholder={searchPlaceholder}
                 placeholderTextColor={Colors.secondary[600]}
                 onChangeText={text => {
-                  setSearch(text);
-                  onChangeSearch?.(text);
+                  setSearch(text)
+                  onChangeSearch?.(text)
                 }}
                 style={{
                   marginHorizontal: 8,
@@ -198,25 +206,25 @@ const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
 
             {filterOptions.length > 0 ? (
               <FlatList
-                style={{marginTop: 16}}
+                style={{ marginTop: 16 }}
                 data={filterOptions}
                 keyExtractor={(i: any) => i[optionValueField as any]}
                 renderItem={renderItem as any}
-                contentContainerStyle={{backgroundColor: 'white'}}
+                contentContainerStyle={{ backgroundColor: 'white' }}
                 onEndReached={onEndReach}
                 bounces={false}
                 ListFooterComponent={() => {
-                  if (!loadingFooter) return null;
+                  if (!loadingFooter) return null
                   return (
-                    <View style={{marginVertical: 32}}>
+                    <View style={{ marginVertical: 32 }}>
                       <ActivityIndicator color={Colors.success[500]} />
                     </View>
-                  );
+                  )
                 }}
               />
             ) : options.length > 0 ? (
               <FlatList
-                style={{marginTop: 10}}
+                style={{ marginTop: 10 }}
                 data={options}
                 keyExtractor={(i: any) => i[optionValueField as any]}
                 renderItem={renderItem as any}
@@ -228,7 +236,8 @@ const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
                   color: Colors.secondary[800],
                   textAlign: 'center',
                   width: '100%',
-                }}>
+                }}
+              >
                 There is no data to show
               </Text>
             )}
@@ -236,26 +245,26 @@ const BottomSheetComponent: React.FC<IBottomSheetProps> = props => {
         </View>
       </RNGestureView>
     </Modal>
-  );
-};
+  )
+}
 
 interface IBottomSheetSelectorProps<T = any>
   extends Omit<IBottomSheetProps<T>, 'isOpen'> {
-  label?: string;
-  placeholder?: string;
-  searchable?: boolean;
-  leftIcon?: JSX.Element;
-  rightIcon?: JSX.Element;
-  customStyles?: StyleProp<ViewStyle>;
-  name: string;
-  control: any;
-  customStylePlaceholder?: StyleProp<TextStyle>;
-  customButton?: () => React.ReactNode;
-  customStyleInside?: StyleProp<TextStyle>;
+  label?: string
+  placeholder?: string
+  searchable?: boolean
+  leftIcon?: JSX.Element
+  rightIcon?: JSX.Element
+  customStyles?: StyleProp<ViewStyle>
+  name: string
+  control: any
+  customStylePlaceholder?: StyleProp<TextStyle>
+  customButton?: () => React.ReactNode
+  customStyleInside?: StyleProp<TextStyle>
 }
 
 const BottomSheetSelector: React.FC<IBottomSheetSelectorProps> = props => {
-  const [openBottomSheet, setOpenBottomSheet] = useState<boolean>(false);
+  //props
   const {
     options,
     customStyles,
@@ -266,26 +275,33 @@ const BottomSheetSelector: React.FC<IBottomSheetSelectorProps> = props => {
     onSelect,
     customButton,
     customStyleInside,
-  } = props;
-  const {Colors} = useTheme();
+  } = props
+
+  //local state
+  const [openBottomSheet, setOpenBottomSheet] = useState<boolean>(false)
+
+  //hooks
+  const { Colors } = useTheme()
 
   return (
     <>
       <Controller
         control={props.control}
         name={props.name}
-        render={({field: {value, onChange}, formState: {errors}}) => {
+        render={({ field: { value, onChange }, formState: { errors } }) => {
           return (
             <>
               {customButton ? (
                 <TouchableWithoutFeedback
-                  onPress={() => setOpenBottomSheet(true)}>
+                  onPress={() => setOpenBottomSheet(true)}
+                >
                   {customButton()}
                 </TouchableWithoutFeedback>
               ) : (
                 <TouchableOpacity
                   onPress={() => setOpenBottomSheet(true)}
-                  style={customStyles}>
+                  style={customStyles}
+                >
                   {label ? (
                     <Text
                       style={{
@@ -296,7 +312,8 @@ const BottomSheetSelector: React.FC<IBottomSheetSelectorProps> = props => {
                         color: !!errors?.[props.name]
                           ? Colors.error[500]
                           : Colors.secondary[500],
-                      }}>
+                      }}
+                    >
                       {label}
                     </Text>
                   ) : null}
@@ -311,7 +328,8 @@ const BottomSheetSelector: React.FC<IBottomSheetSelectorProps> = props => {
                       borderWidth: 1,
                       borderRadius: 50,
                       justifyContent: 'center',
-                    }}>
+                    }}
+                  >
                     {!!value ? (
                       <Text
                         style={{
@@ -319,7 +337,8 @@ const BottomSheetSelector: React.FC<IBottomSheetSelectorProps> = props => {
                           fontSize: 14,
                           fontWeight: 'normal',
                           color: Colors.secondary[600],
-                        }}>
+                        }}
+                      >
                         {value?.[props.optionLabelField as any]}
                       </Text>
                     ) : (
@@ -327,7 +346,8 @@ const BottomSheetSelector: React.FC<IBottomSheetSelectorProps> = props => {
                         style={{
                           textAlign: 'left',
                           color: Colors.secondary[400],
-                        }}>
+                        }}
+                      >
                         {placeholder ? placeholder : ''}
                       </Text>
                     )}
@@ -343,20 +363,20 @@ const BottomSheetSelector: React.FC<IBottomSheetSelectorProps> = props => {
                   searchable={searchable}
                   optionSelected={value}
                   onSelect={item => {
-                    onChange(item);
-                    onSelect?.(item);
-                    setOpenBottomSheet(false);
+                    onChange(item)
+                    onSelect?.(item)
+                    setOpenBottomSheet(false)
                   }}
                   options={options}
                   handleCloseSheet={() => setOpenBottomSheet(false)}
                 />
               )}
             </>
-          );
+          )
         }}
       />
     </>
-  );
-};
+  )
+}
 
-export default BottomSheetSelector;
+export default BottomSheetSelector

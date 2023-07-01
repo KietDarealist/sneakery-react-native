@@ -1,19 +1,24 @@
-import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
-import useTheme from '../../../hooks/useTheme';
+import React from 'react'
 
-import ArrowLeftIcon from '../../../assets/icons/ArrowLeft.png';
-import InfoFillIcon from '../../../assets/icons/InfoFill.png';
-import {useNavigation} from '@react-navigation/native';
+//components
+import { Image, Text, TouchableOpacity, View } from 'react-native'
+
+//hooks
+import useTheme from '@/hooks/useTheme'
+import { useNavigation } from '@react-navigation/native'
 
 interface IAuthNavigateHeaderProps {
-  title: string;
+  title: string
 }
 
 const NavigationHeader: React.FC<IAuthNavigateHeaderProps> = props => {
-  const {Colors} = useTheme();
-  const navigation = useNavigation();
-  const {title} = props;
+  //props
+  const { title } = props
+
+  //hooks
+  const { Colors } = useTheme()
+  const navigation = useNavigation()
+
   return (
     <View
       style={{
@@ -21,12 +26,13 @@ const NavigationHeader: React.FC<IAuthNavigateHeaderProps> = props => {
         paddingVertical: 12,
         flexDirection: 'row',
         justifyContent: 'space-between',
-      }}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      }}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             source={require('../../../assets/icons/ArrowLeft.png')}
-            style={{width: 30, height: 30, marginRight: 8}}
+            style={{ width: 30, height: 30, marginRight: 8 }}
           />
         </TouchableOpacity>
         <Text
@@ -34,13 +40,14 @@ const NavigationHeader: React.FC<IAuthNavigateHeaderProps> = props => {
             fontSize: 20,
             fontWeight: 'bold',
             color: Colors.secondary[700],
-          }}>
+          }}
+        >
           {title}
         </Text>
       </View>
-      <View style={{width: '33%'}}></View>
+      <View style={{ width: '33%' }}></View>
     </View>
-  );
-};
+  )
+}
 
-export default NavigationHeader;
+export default NavigationHeader
