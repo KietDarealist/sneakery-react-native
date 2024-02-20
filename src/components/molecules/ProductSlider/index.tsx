@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 //components
 import { Image, Pressable, SectionList, View } from 'react-native'
-import ThinkingStorySet from '@/assets/images/ThinkingStorySet.png'
-import PhoneStorySet from '@/assets/images/PhoneStorySet.png'
-import ReceiveStorySet from '@/assets/images/ReceiveStorySet.png'
+import ThinkingStorySet from '../../../assets/images/ThinkingStorySet.png'
+import PhoneStorySet from '../../../assets/images/PhoneStorySet.png'
+import ReceiveStorySet from '../../../assets/images/ReceiveStorySet.png'
 
 //hooks
 import { useTranslation } from 'react-i18next'
-import useTheme from '@/hooks/useTheme'
+import useTheme from '../../../hooks/useTheme'
 
 interface IProductSliderProps {}
 

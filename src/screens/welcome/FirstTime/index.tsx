@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react'
 import {
   Image,
   Platform,
@@ -9,39 +9,40 @@ import {
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
-} from 'react-native';
-import {Button} from '../../../components/atoms';
-import WelcomSlider from '../../../components/molecules/WelcomeSlider';
-import useTheme from '../../../hooks/useTheme';
+} from 'react-native'
+import { Button } from '../../../components/atoms'
+import WelcomSlider from '../../../components/molecules/WelcomeSlider'
+import useTheme from '../../../hooks/useTheme'
 
-import WorldIcon from '../../../assets/icons/World.png';
-import {useNavigation} from '@react-navigation/native';
-import BaseBottomSheet from '../../../components/molecules/BaseBottomSheet';
+import WorldIcon from '../../../assets/icons/World.png'
+import { useNavigation } from '@react-navigation/native'
+import BaseBottomSheet from '../../../components/molecules/BaseBottomSheet'
 
-import VietNamIcon from '../../../assets/icons/VietNam.png';
-import EnglandIcon from '../../../assets/icons/UnitedKingdom.png';
+import VietNamIcon from '../../../assets/icons/VietNam.png'
+import EnglandIcon from '../../../assets/icons/UnitedKingdom.png'
 
-import i18n from '../../../translations';
-import {useTranslation} from 'react-i18next';
+import i18n from '../../../translations'
+import { useTranslation } from 'react-i18next'
 
 interface IFirstTimeScreenProps {}
 
 const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
-  const navigation = useNavigation();
-  const {Colors} = useTheme();
-  const {t} = useTranslation();
-  const {height} = useWindowDimensions();
+  const navigation = useNavigation()
+  const { Colors } = useTheme()
+  const { t } = useTranslation()
+  const { height } = useWindowDimensions()
   const [openLanguageSettings, setOpenLanguageSetting] =
-    useState<boolean>(false);
+    useState<boolean>(false)
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.secondary[100]}}>
+    <SafeAreaView style={{ backgroundColor: Colors.secondary[100] }}>
       <View
         style={{
           height: height,
           justifyContent: 'space-between',
           backgroundColor: Colors.secondary[100],
-        }}>
+        }}
+      >
         <View
           style={{
             justifyContent: 'space-between',
@@ -49,13 +50,15 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
             flexDirection: 'row',
             width: '100%',
             paddingHorizontal: 20,
-          }}>
+          }}
+        >
           <Text
             style={{
               fontSize: 24,
               fontWeight: '800',
               color: Colors.primary[500],
-            }}>
+            }}
+          >
             Sneakery
           </Text>
           <TouchableOpacity
@@ -69,18 +72,20 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
               borderRadius: 50,
               flexDirection: 'row',
               alignItems: 'center',
-            }}>
+            }}
+          >
             <Text
               style={{
                 color: Colors.secondary[600],
                 fontWeight: '500',
                 fontSize: 14,
-              }}>
+              }}
+            >
               {t('welcome.language')}
             </Text>
             <Image
               source={WorldIcon}
-              style={{width: 20, height: 20, marginLeft: 5}}
+              style={{ width: 20, height: 20, marginLeft: 5 }}
             />
           </TouchableOpacity>
         </View>
@@ -90,7 +95,8 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
           style={{
             paddingBottom: Platform.OS === 'ios' ? 80 : 40,
             paddingHorizontal: 20,
-          }}>
+          }}
+        >
           <Button
             label={t('welcome.login_now')}
             onPress={() => navigation.navigate('Login' as never)}
@@ -99,7 +105,7 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
             label={t('welcome.register_now')}
             onPress={() => navigation.navigate('Register' as never)}
             variant="outline"
-            customStyle={{marginTop: 8}}
+            customStyle={{ marginTop: 8 }}
           />
         </View>
       </View>
@@ -107,11 +113,11 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
       <BaseBottomSheet
         initialSnapPoints={['22%']}
         children={
-          <View style={{paddingVertical: 20}}>
+          <View style={{ paddingVertical: 20 }}>
             <TouchableOpacity
               onPress={() => {
-                i18n.changeLanguage('vi');
-                setOpenLanguageSetting(false);
+                i18n.changeLanguage('vi')
+                setOpenLanguageSetting(false)
               }}
               style={{
                 flexDirection: 'row',
@@ -121,21 +127,23 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
                 paddingHorizontal: 20,
                 borderBottomColor: Colors.secondary[300],
                 borderBottomWidth: 1,
-              }}>
+              }}
+            >
               <Text
                 style={{
                   fontSize: 16,
                   color: Colors.secondary[600],
                   fontWeight: '500',
-                }}>
+                }}
+              >
                 {t('welcome.vietnamese')} (VN)
               </Text>
-              <Image source={VietNamIcon} style={{width: 30, height: 30}} />
+              <Image source={VietNamIcon} style={{ width: 30, height: 30 }} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                i18n.changeLanguage('en');
-                setOpenLanguageSetting(false);
+                i18n.changeLanguage('en')
+                setOpenLanguageSetting(false)
               }}
               style={{
                 flexDirection: 'row',
@@ -145,23 +153,25 @@ const FirstTime: React.FC<IFirstTimeScreenProps> = props => {
                 paddingHorizontal: 20,
                 borderBottomColor: Colors.secondary[300],
                 borderBottomWidth: 1,
-              }}>
+              }}
+            >
               <Text
                 style={{
                   fontSize: 16,
                   color: Colors.secondary[600],
                   fontWeight: '500',
-                }}>
+                }}
+              >
                 {t('welcome.english')} (EN)
               </Text>
-              <Image source={EnglandIcon} style={{width: 30, height: 30}} />
+              <Image source={EnglandIcon} style={{ width: 30, height: 30 }} />
             </TouchableOpacity>
           </View>
         }
         isOpen={openLanguageSettings}
       />
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default FirstTime;
+export default FirstTime

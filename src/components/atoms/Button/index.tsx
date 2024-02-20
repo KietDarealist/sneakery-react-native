@@ -1,21 +1,15 @@
-//React
 import React, { lazy } from 'react'
-import {
-  StyleProp,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native'
+import { StyleProp, Text, useColorScheme, View, ViewStyle } from 'react-native'
 import useTheme from '../../../hooks/useTheme'
 import { ActivityIndicator } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type IVariant = 'primary' | 'outline'
 
 interface IButtonProps {
   label: string
   variant?: IVariant
-  customStyle?: StyleProp<ViewStyle>
+  customStyle?: any
   onPress?: () => void
   isLoading?: boolean
 }
@@ -24,7 +18,23 @@ const Button: React.FC<IButtonProps> = props => {
   const { Colors } = useTheme()
   const { customStyle, variant = 'primary', onPress, isLoading = false } = props
   return (
-    <TouchableOpacity onPress={() => onPress?.()} style={{}}>
+    <TouchableOpacity
+      onPress={() => onPress?.()}
+      style={[
+        {
+          width: '100%',
+          backgroundColor:
+            variant === 'primary' ? Colors.primary[500] : Colors.secondary[50],
+          borderWidth: variant === 'outline' ? 1 : 0,
+          borderColor:
+            variant === 'outline' ? Colors.primary[500] : 'transparent',
+          height: 45,
+          justifyContent: 'center',
+          borderRadius: 10,
+        },
+        customStyle,
+      ]}
+    >
       {isLoading === true ? (
         <View
           style={{

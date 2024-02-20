@@ -12,10 +12,10 @@ import { View, Modal, Keyboard, Platform, Text } from 'react-native'
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { GestureHandlerRootView as RNGestureView } from 'react-native-gesture-handler'
-import { Button, TextInput } from '@/components/atoms'
+import { Button, TextInput } from '../../atoms'
 
 //hooks
-import useTheme from '@/hooks/useTheme'
+import useTheme from '../../../hooks/useTheme'
 import { useForm } from 'react-hook-form'
 
 interface IBottomSheetComponentProps {

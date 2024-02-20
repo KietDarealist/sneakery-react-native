@@ -8,12 +8,12 @@ import {
   View,
 } from 'react-native'
 
-import ThinkingStorySet from '@/assets/images/ThinkingStorySet.png'
-import PhoneStorySet from '@/assets/images/PhoneStorySet.png'
-import ReceiveStorySet from '@/assets/images/ReceiveStorySet.png'
+import ThinkingStorySet from '../../../assets/images/ThinkingStorySet.png'
+import PhoneStorySet from '../../../assets/images/PhoneStorySet.png'
+import ReceiveStorySet from '../../../assets/images/ReceiveStorySet.png'
 
 //hooks
-import useTheme from '@/hooks/useTheme'
+import useTheme from '../../../hooks/useTheme'
 import { useTranslation } from 'react-i18next'
 
 interface IWelcomSliderProps {}

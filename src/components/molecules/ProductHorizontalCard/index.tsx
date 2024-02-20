@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 //hooks
 import { useNavigation } from '@react-navigation/native'
-import useTheme from '@/hooks/useTheme'
+import useTheme from '../../../hooks/useTheme'
 
 //utils
 import { IProduct } from '../../../types'

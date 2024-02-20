@@ -5,7 +5,7 @@ import { Image, ImageSourcePropType, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 //hooks
-import useTheme from '@/hooks/useTheme'
+import useTheme from '../../../hooks/useTheme'
 
 interface IBrandCardProps {
   isReverse?: boolean

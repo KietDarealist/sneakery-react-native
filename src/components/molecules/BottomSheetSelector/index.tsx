@@ -27,7 +27,7 @@ import { Controller } from 'react-hook-form'
 
 //hooks
 import { useCallback, useRef, useMemo, useState } from 'react'
-import useTheme from '@/hooks/useTheme'
+import useTheme from '../../../hooks/useTheme'
 
 interface IBottomSheetProps<T = any> {
   options: T[]

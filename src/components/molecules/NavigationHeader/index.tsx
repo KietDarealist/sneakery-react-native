@@ -4,7 +4,7 @@ import React from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 
 //hooks
-import useTheme from '@/hooks/useTheme'
+import useTheme from '../../../hooks/useTheme'
 import { useNavigation } from '@react-navigation/native'
 
 interface IAuthNavigateHeaderProps {

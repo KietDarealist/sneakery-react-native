@@ -1,80 +1,83 @@
-import axios from 'axios';
-import {IProductCondition} from '../../types';
+import axios from 'axios'
+import { IProductCondition } from '../../types'
 
 const getNikeProductsService = async () => {
   try {
     const response = await axios.get(
-      `https://sneakery.herokuapp.com/api/products?keyword=dunkie`,
-    );
-    if (response) return response;
+      `https://sneakery-develop-4ba9beca2712.herokuapp.com/products?keyword=dunkie`,
+    )
+    if (response) {
+
+      return response
+    }
   } catch (error: any) {
-    return error;
+    return error
   }
-};
+}
 
 const getAdidasProductsService = async () => {
   try {
     const response = await axios.get(
-      `https://sneakery.herokuapp.com/api/products?keyword=trunkie`,
-    );
-    if (response) return response;
+      `https://sneakery-develop-4ba9beca2712.herokuapp.com/api/products?keyword=trunkie`,
+    )
+    if (response) return response
   } catch (error: any) {
-    return error;
+    return error
   }
-};
+}
 
 const getPumaProductsService = async () => {
   try {
     const response = await axios.get(
-      `https://sneakery.herokuapp.com/api/products?&brand=puma`,
-    );
-    if (response) return response;
+      `https://sneakery-develop-4ba9beca2712.herokuapp.com/api/products?&brand=puma`,
+    )
+    if (response) return response
   } catch (error: any) {
-    return error;
+    return error
   }
-};
+}
 
 const getLVProductsService = async () => {
   try {
     const response = await axios.get(
-      `https://sneakery.herokuapp.com/api/products?&brand=lv`,
-    );
-    if (response) return response;
+      `https://sneakery-develop-4ba9beca2712.herokuapp.com/api/products?&brand=lv`,
+    )
+    if (response) return response
   } catch (error: any) {
-    return error;
+    return error
   }
-};
+}
 
 const getProductDetailService = async (id: string) => {
   try {
     const response = await axios.get(
       `https://sneakery.herokuapp.com/api/products/${id}`,
-    );
-    if (response) return response;
+    )
+    if (response) return response
   } catch (error: any) {
-    return error;
+    return error
   }
-};
+}
 
 const getProductBidHistoryService = async (id: string) => {
   try {
     const response = await axios.get(
       `https://sneakery.herokuapp.com/api/bid_history/product/${id}`,
-    );
-    if (response) return response;
+    )
+    if (response) return response
   } catch (error: any) {
-    return error;
+    return error
   }
-};
+}
 
 const bidProductService = async (
   id: string,
   accessToken: string,
   bidValue: number,
 ) => {
-  console.log('access token service', accessToken);
-  console.log('bid value', bidValue);
-  console.log('id', id);
+  console.log('access token service', accessToken)
+  console.log('bid value', bidValue)
+  console.log('id', id)
   try {
     const response = await axios.post(
       'https://sneakery.herokuapp.com/api/bids',
@@ -88,13 +91,13 @@ const bidProductService = async (
           'Content-Type': 'application/json',
         },
       },
-    );
-    if (response) return response;
+    )
+    if (response) return response
   } catch (error: any) {
-    console.log(error?.response?.data);
-    return error;
+    console.log(error?.response?.data)
+    return error
   }
-};
+}
 
 const filterProductServices = async (
   keyWord: string,
@@ -131,16 +134,16 @@ const filterProductServices = async (
         : ''
     }${priceStart !== null ? `&priceStart=${priceStart}` : ''}${
       priceEnd !== null ? `&priceEnd=${priceEnd}` : ''
-    }`;
-    console.log('URL here', url);
-    const response = await axios.get(url);
+    }`
+    console.log('URL here', url)
+    const response = await axios.get(url)
     if (response?.data) {
-      return response;
+      return response
     }
   } catch (error) {
-    return error;
+    return error
   }
-};
+}
 
 export {
   getNikeProductsService,
@@ -151,4 +154,4 @@ export {
   getProductBidHistoryService,
   bidProductService,
   filterProductServices,
-};
+}

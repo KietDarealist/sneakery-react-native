@@ -59,7 +59,7 @@ const defaultLightColors = {
     800: '#991b1b',
     900: '#7f1d1d',
   },
-};
+}
 
 const defaultDarkColors = {
   primary: {
@@ -122,6 +122,6 @@ const defaultDarkColors = {
     800: '#991b1b',
     900: '#7f1d1d',
   },
-};
+}
 
-export {defaultLightColors, defaultDarkColors};
+export { defaultLightColors, defaultDarkColors }

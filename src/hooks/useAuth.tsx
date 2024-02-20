@@ -5,7 +5,7 @@ import {
   logOutAccount,
   postRegisterAccount,
   refreshWallet,
-} from '@/store/auth/actions'
+} from '../store/auth/actions'
 
 const useAuth = () => {
   const {
